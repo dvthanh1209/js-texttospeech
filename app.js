@@ -32,10 +32,15 @@ app.post('/convert', async (req, res) => {
         'api_key': api_key,
         'Content-Type': 'application/json'
     };
+
+    // Kiểm tra xem giá trị speed có đúng không
+    console.log(`Speed nhận được: ${speed}`);
     
-    // Chỉ gửi văn bản và loại bỏ các thông tin khác như voice và speed trong quá trình trả về
+    // Chỉ gửi văn bản, giọng và tốc độ tới API
     const data = {
-        text: text  // Chỉ gửi văn bản
+        text: text,
+        voice: voice,
+        speed: parseInt(speed)  // Đảm bảo speed là số nguyên
     };
 
     try {
