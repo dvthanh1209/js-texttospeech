@@ -7,16 +7,55 @@
     <style>
         body {
             font-family: Arial, sans-serif;
-            background-color: #f0f0f0;
+            background-image: url('https://smarthomefpt.vn/wp-content/uploads/2022/08/e45c9780344191.5cde32f6b65ae.jpg');
+            background-size: cover;
+            background-position: center;
             color: #333;
+            padding: 20px;
+            min-height: 100vh;
+        }
+        .logo {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            width: 100px;
         }
         form {
             margin-top: 50px;
         }
+        input, select {
+            padding: 10px;
+            margin: 5px;
+            border-radius: 5px;
+            border: none;
+        }
+        button {
+            padding: 10px 15px;
+            background-color: #007BFF;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        #result {
+            margin-top: 20px;
+        }
+        #note {
+            position: absolute;
+            bottom: 10px;
+            left: 10px;
+            color: #999;
+            font-size: 12px;
+        }
     </style>
 </head>
 <body>
+    <img src="https://maychufpt.com.vn/wp-content/uploads/2022/05/hosting-fpt.png" alt="Logo" class="logo">
     <h1>Convert text to speech</h1>
+
     <form id="tts-form">
         <label for="text">Nhập văn bản:</label>
         <input type="text" id="text" name="text" required>
@@ -24,6 +63,7 @@
         <label for="voice">Chọn giọng:</label>
         <select id="voice" name="voice">
             <option value="banmai">Ban Mai (nữ miền Bắc)</option>
+            <!-- Thêm các lựa chọn khác -->
         </select>
         <br>
         <label for="speed">Tốc độ:</label>
@@ -31,7 +71,12 @@
         <br>
         <button type="submit">Convert</button>
     </form>
+
     <div id="result"></div>
+
+    <!-- Dòng lưu ý nhỏ -->
+    <div id="note">Lưu ý: Nếu không có âm thanh, vui lòng thử lại lần 2</div>
+
     <script>
         document.getElementById('tts-form').addEventListener('submit', async function(event) {
             event.preventDefault();
