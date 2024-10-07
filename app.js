@@ -4,16 +4,16 @@ const axios = require('axios');
 require('dotenv').config();
 
 const app = express();
-const port = process.env.PORT || 5000;  // Đảm bảo rằng port được lấy từ biến môi trường
+const port = process.env.PORT || 5000;
 
 // Middleware
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
-app.use(express.static('public'));  // Đảm bảo phục vụ các file tĩnh trong thư mục 'public'
+app.use(express.static('public'));
 
 // Trang chủ hiển thị file index.html
 app.get('/', (req, res) => {
-    res.sendFile(__dirname + '/public/index.html');  // Đảm bảo file index.html nằm trong thư mục 'public'
+    res.sendFile(__dirname + '/public/index.html');
 });
 
 // API route để chuyển đổi text-to-speech
@@ -21,7 +21,7 @@ app.post('/convert', async (req, res) => {
     const text = req.body.text;  // Lấy văn bản từ form
     const voice = req.body.voice || 'banmai';  // Giọng mặc định là 'banmai'
     const speed = req.body.speed || 0;  // Tốc độ mặc định là 0
-    const api_key = process.env.API_KEY;  // API key được lấy từ biến môi trường
+    const api_key = process.env.API_KEY;
 
     if (!api_key) {
         return res.status(500).json({ error: "API key chưa được cấu hình." });
@@ -32,10 +32,10 @@ app.post('/convert', async (req, res) => {
         'api_key': api_key,
         'Content-Type': 'application/json'
     };
+    
+    // Chỉ gửi văn bản và loại bỏ các thông tin khác như voice và speed trong quá trình trả về
     const data = {
-        text: text,  // Chỉ gửi nội dung văn bản
-        voice: voice,
-        speed: speed
+        text: text  // Chỉ gửi văn bản
     };
 
     try {
@@ -50,7 +50,6 @@ app.post('/convert', async (req, res) => {
     }
 });
 
-// Khởi động server trên port đã được định nghĩa
 app.listen(port, () => {
     console.log(`Server chạy tại http://localhost:${port}`);
 });
