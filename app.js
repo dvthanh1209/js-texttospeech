@@ -1,22 +1,3 @@
-const express = require('express');
-const bodyParser = require('body-parser');
-const axios = require('axios');
-require('dotenv').config();
-
-const app = express();
-const port = process.env.PORT || 5000;
-
-// Middleware
-app.use(bodyParser.urlencoded({ extended: true }));
-app.use(bodyParser.json());
-app.use(express.static('public'));
-
-// Trang chủ hiển thị file index.html
-app.get('/', (req, res) => {
-    res.sendFile(__dirname + '/public/index.html');
-});
-
-// API route để chuyển đổi text-to-speech
 app.post('/convert', async (req, res) => {
     const text = req.body.text; // Lấy văn bản từ form
     const voice = req.body.voice || 'banmai'; // Giọng mặc định là 'banmai'
@@ -33,7 +14,7 @@ app.post('/convert', async (req, res) => {
         'Content-Type': 'application/json'
     };
     const data = {
-        text: text,
+        text: text,  // Chỉ gửi nội dung văn bản, không cần thêm các thông tin khác vào
         voice: voice,
         speed: speed
     };
@@ -41,15 +22,11 @@ app.post('/convert', async (req, res) => {
     try {
         const response = await axios.post(url, data, { headers });
         if (response.data.async) {
-            return res.json({ audio_url: response.data.async });
+            return res.json({ audio_url: response.data.async });  // Trả về liên kết audio
         } else {
             return res.status(400).json({ error: "Không có liên kết âm thanh trả về." });
         }
     } catch (error) {
         return res.status(500).json({ error: "Lỗi khi gửi yêu cầu." });
     }
-});
-
-app.listen(port, () => {
-    console.log(`Server chạy tại http://localhost:${port}`);
 });
