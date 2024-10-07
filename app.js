@@ -30,24 +30,20 @@ app.post('/convert', async (req, res) => {
     const url = "https://api.fpt.ai/hmi/tts/v5";
     const headers = {
         'api_key': api_key,
+        'voice': voice,
+        'speed': speed.toString(),
         'Content-Type': 'application/json'
     };
 
-    // Chỉ gửi văn bản, giọng và tốc độ tới API
-    const data = {
-        text: text,
-        voice: voice,
-        speed: speed.toString()  // Đảm bảo speed được gửi dưới dạng chuỗi
-    };
-
     try {
-        const response = await axios.post(url, data, { headers });
+        const response = await axios.post(url, text, { headers });
         if (response.data.async) {
             return res.json({ audio_url: response.data.async });  // Trả về liên kết audio
         } else {
             return res.status(400).json({ error: "Không có liên kết âm thanh trả về." });
         }
     } catch (error) {
+        console.error(error);
         return res.status(500).json({ error: "Lỗi khi gửi yêu cầu." });
     }
 });
