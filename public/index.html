@@ -14,9 +14,9 @@
             height: 100vh;
             margin: 0;
             display: flex;
+            flex-direction: column;
             justify-content: center;
             align-items: center;
-            flex-direction: column;
         }
         .logo {
             position: absolute;
@@ -29,17 +29,16 @@
             display: flex;
             flex-direction: column;
             align-items: center;
-            background-color: rgba(255, 255, 255, 0.8);
+            background-color: rgba(255, 255, 255, 0.9);
             padding: 20px;
             border-radius: 10px;
         }
         input, select {
             padding: 10px;
-            margin: 5px;
+            margin: 10px 0;
             border-radius: 5px;
-            border: none;
-            width: 100%;
-            max-width: 300px;
+            border: 1px solid #ccc;
+            width: 300px;
         }
         button {
             padding: 10px 15px;
@@ -73,16 +72,16 @@
     <form id="tts-form">
         <label for="text">Nhập văn bản:</label>
         <input type="text" id="text" name="text" required>
-        <br>
+        
         <label for="voice">Chọn giọng:</label>
         <select id="voice" name="voice">
             <option value="banmai">Ban Mai (nữ miền Bắc)</option>
             <!-- Thêm các lựa chọn khác -->
         </select>
-        <br>
+        
         <label for="speed">Tốc độ:</label>
         <input type="number" id="speed" name="speed" min="-3" max="3" value="0">
-        <br>
+        
         <button type="submit">Convert</button>
     </form>
 
